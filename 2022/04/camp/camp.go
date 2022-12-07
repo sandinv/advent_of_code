@@ -32,6 +32,9 @@ func fromString(asg string) assignment {
 func (s assignment) in(another assignment) bool {
 	return s.init >= another.init && s.end <= another.end
 }
+func (s assignment) overlap(another assignment) bool {
+	return s.init >= another.init && s.init <= another.end
+}
 
 func CountInclusiveParts(rdr io.Reader) (total int) {
 
@@ -46,5 +49,21 @@ func CountInclusiveParts(rdr io.Reader) (total int) {
 			total++
 		}
 	}
+	return
+}
+
+func CountOverlapParts(rdr io.Reader) (total int) {
+	scanner := bufio.NewScanner(rdr)
+
+	for scanner.Scan() {
+		line := scanner.Text()
+		assignments := strings.Split(line, ",")
+		first_assignment := fromString(assignments[0])
+		second_assignment := fromString(assignments[1])
+		if first_assignment.overlap(second_assignment) || second_assignment.overlap(first_assignment) {
+			total++
+		}
+	}
+
 	return
 }

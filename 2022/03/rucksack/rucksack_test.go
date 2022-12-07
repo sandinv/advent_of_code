@@ -6,7 +6,26 @@ import (
 	"testing"
 )
 
-func TestProcessRucksacks(t *testing.T) {
+func TestGetTotalBadgetPriorities(t *testing.T) {
+	rucksacks := `
+vJrwpWtwJgWrhcsFMMfFFhFp
+jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
+PmmdzqPrVvPwwTWBwg
+wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
+ttgJtRGJQctTZtZT
+CrZsJsPPZsGzwwsLwLmpwMDw
+`
+	want := 70
+	reader := strings.NewReader(rucksacks)
+
+	got := GetTotalBadgetPriorities(reader)
+
+	if got != want {
+		t.Errorf("wanted %d but got %d", want, got)
+	}
+}
+
+func TestGetTotalPriorities(t *testing.T) {
 	rucksacks := `
 vJrwpWtwJgWrhcsFMMfFFhFp
 jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
@@ -42,7 +61,7 @@ func TestFindSharedItem(t *testing.T) {
 
 	for _, test := range cases {
 		t.Run(fmt.Sprintf("Rucksack %s", test.input), func(t *testing.T) {
-			got := FindSharedItem(test.input)
+			got := FindSharedItem(test.input, 1)
 			if got != test.want {
 				t.Errorf("wanted %v but got %v", test.want, got)
 			}

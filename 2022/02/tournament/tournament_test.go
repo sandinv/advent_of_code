@@ -17,7 +17,7 @@ C Z
 		want := 15
 
 		reader := strings.NewReader(input)
-		got := SimulateStrategy(reader)
+		got := SimulateStrategy(reader, true)
 		if want != got {
 			t.Errorf("wanted %d but got %d", want, got)
 		}

@@ -111,23 +111,19 @@ func CreateStacks(content []string) *Stacks {
 
 func (s *Stack) Push(a ...rune) {
 
-	for _, r := range a {
-		*s = append(*s, r)
+	for i := 0; i < len(a); i++ {
+		*s = append(*s, a[i])
 	}
 }
 
 func (s *Stack) PopN(count int) ([]rune, error) {
 
-	result := []rune{}
-	for i := 0; i < count; i++ {
-		item, err := s.Pop()
-		if err != nil {
-			return nil, err
-		}
-		result = append(result, item)
-
+	if len(*s) < count {
+		return nil, NotEnoughCapacity
 	}
-	return result, nil
+	temp := (*s)[len(*s)-count:]
+	*s = (*s)[:len(*s)-count]
+	return temp, nil
 
 }
 

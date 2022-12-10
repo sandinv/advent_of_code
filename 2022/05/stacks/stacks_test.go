@@ -21,7 +21,7 @@ move 1 from 1 to 2
 
 	got, err := PartI(strings.NewReader(input))
 	assertNoError(t, err)
-	want := "CMZ"
+	want := "MCD"
 	if got != want {
 		t.Errorf("wanted %q but got %q", want, got)
 	}
@@ -114,7 +114,7 @@ func TestCrate(t *testing.T) {
 
 	t.Run("Pop two items from the Stack", func(t *testing.T) {
 		stack := &Stack{'A', 'B'}
-		want := []rune{'B', 'A'}
+		want := []rune{'A', 'B'}
 		got, err := stack.PopN(2)
 
 		assertNoError(t, err)

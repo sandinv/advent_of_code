@@ -2,7 +2,7 @@ package markers
 
 type Signal map[rune]struct{}
 
-const marker_length = 4
+const marker_length = 14
 
 func FindMarker(signals string) int {
 
